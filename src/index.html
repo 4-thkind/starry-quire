@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Spiral Notebook</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="desk"></div>
+
+  <!-- the whole notebook; slides to centre the closed cover -->
+  <div id="bookwrap">
+    <div id="book"></div>
+    <svg id="coil"></svg>
+  </div>
+
+  <div id="hud">
+    <button id="prev" title="Previous page (←)">‹</button>
+    <button id="toc" title="Index (Home)">☰</button>
+    <button id="next" title="Next page (→)">›</button>
+    <button id="help" title="Keyboard shortcuts (Ctrl+/)">?</button>
+    <span id="saved">saved</span>
+  </div>
+
+  <div id="keys" class="hidden">
+    <div class="keys-card">
+      <h3>Shortcuts</h3>
+      <div class="k"><b>Drag a page edge</b><span>Grab a page by its corner or margin and pull it over, like paper</span></div>
+      <div class="k"><b>← → / swipe</b><span>Turn the page (two-finger swipe on the touchpad)</span></div>
+      <div class="k"><b>Ctrl+Shift+H</b><span>Heading on this line (big on the first line, smaller elsewhere). Press again to undo</span></div>
+      <div class="k"><b>Ctrl+B / I / U</b><span>Bold / italic / underline</span></div>
+      <div class="k"><b>Ctrl+Shift+Y</b><span>Highlight (yellow)</span></div>
+      <div class="k"><b>Ctrl+Shift+X</b><span>Strikethrough</span></div>
+      <div class="k"><b>Ctrl+Shift+8</b><span>Bullet points (or type <code>- </code> at line start)</span></div>
+      <div class="k"><b>Ctrl+Shift+7</b><span>Numbered list (or type <code>1. </code>)</span></div>
+      <div class="k"><b>Tab / Shift+Tab</b><span>Indent / outdent a point</span></div>
+      <div class="k"><b>-&gt;  &lt;-  =&gt;  &lt;-&gt;</b><span>Type them: become → ← ⇒ ↔</span></div>
+      <div class="k"><b>Ctrl+\</b><span>Clear formatting on the line</span></div>
+      <div class="k"><b>Ctrl+Z / Ctrl+Y</b><span>Undo / redo</span></div>
+      <div class="k"><b>PageDown / PageUp</b><span>Next / previous page while typing</span></div>
+      <div class="k"><b>Home · Esc</b><span>Index · Close the notebook</span></div>
+      <div class="k"><b>Ctrl+/</b><span>Show / hide this card</span></div>
+    </div>
+  </div>
+
+  <script src="vendor/page-flip.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>
