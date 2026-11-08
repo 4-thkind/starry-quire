@@ -1,0 +1,45 @@
+SPIRAL NOTEBOOK — install, use, uninstall
+=========================================
+
+INSTALL
+  1. Unzip SpiralNotebook.zip and double-click SpiralNotebook-Setup.exe.
+  2. If Windows says "Windows protected your PC" (the app isn't code-signed),
+     click "More info" -> "Run anyway".
+  3. Click through the installer. It adds a Desktop and Start-menu shortcut.
+     No admin rights needed; it installs just for your user.
+
+HOW IT WORKS
+  Cover -> Index (both pages) -> your note pages.
+  Open the book  : click the cover (or swipe / press ->)
+  Turn a page    : grab a page by its corner or margin and drag it over,
+                   like real paper (hover a corner to see it lift), or
+                   two-finger swipe on the touchpad, or -> / <- arrow keys,
+                   or Page Down / Page Up while typing
+  Close the book : turn back past the Index, or press Esc
+  Jump to index  : the ☰ button (top-right) or Home
+  Open a note    : click its line in the Index
+  Click the lines and type. Pages never run out: fresh blank pages keep
+  appearing as you go. Everything saves by itself. F11 = full screen.
+
+SHORTCUTS  (Ctrl+/ or the ? button shows these inside the app)
+  Ctrl+Shift+H   Heading on the current line: big on a page's first line,
+                 smaller anywhere else. Press again to undo. Enter = normal text.
+  Ctrl+B / I / U Bold / italic / underline
+  Ctrl+Shift+Y   Highlight             Ctrl+Shift+X  Strikethrough
+  Ctrl+Shift+8   Bullets  (or type "- " at the start of a line)
+  Ctrl+Shift+7   Numbered list  (or type "1. ")
+  Tab/Shift+Tab  Indent / outdent a point;  Enter twice leaves a list
+  -> <- => <->   Typed, they become  → ← ⇒ ↔
+  Ctrl+\         Clear formatting      Ctrl+Z / Ctrl+Y  Undo / redo
+
+WHERE YOUR NOTES ARE SAVED
+  %APPDATA%\spiral-notebook\notes.json
+  (paste  %APPDATA%\spiral-notebook  into File Explorer's address bar)
+  Copy that file to back up your notes or move them to another PC.
+
+UNINSTALL
+  Settings -> Apps -> Installed apps -> Spiral Notebook -> Uninstall
+  (or Start menu -> right-click Spiral Notebook -> Uninstall).
+  This removes the app, its shortcuts AND ALL YOUR NOTES.
+  Back up notes.json first if you want to keep them.
+  Installing a newer version over the old one does NOT delete your notes.
