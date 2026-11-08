@@ -1,0 +1,107 @@
+:root{
+  --line: 40px;   /* must match LINE in renderer.js */
+  --head: 70px;   /* must match HEAD */
+  --ink: #16304f;
+  --rule: rgba(22,72,138,.9);   /* the navy ruling from the page design */
+  --serif: "Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ height:100%; overflow:hidden; background:#161b21;
+  font-family:"Segoe UI",system-ui,sans-serif; user-select:none; }
+input,.lines[contenteditable]{ user-select:text; }
+
+#desk{ position:fixed; inset:0;
+  background:radial-gradient(1200px 800px at 50% 40%,#3a4a5a 0%,#222a33 60%,#171c22 100%); }
+
+/* ---------- BOOK (page-flip lays the pages out; we only style them) ---------- */
+#bookwrap{ position:fixed; inset:0; transition:transform .9s cubic-bezier(.45,.05,.3,1); }
+#book{ width:100%; height:100%; }
+#coil{ position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none; z-index:4; overflow:visible; }  /* above resting pages, below the turning one */
+
+.page{ background:url("../assets/page.jpg") center top/cover no-repeat;   /* keep the sun + star */
+  color:var(--ink); overflow:hidden; }
+/* while turning, give each sheet a visible paper edge so the turning page never visually
+   merges into the identical-looking page underneath it */
+.stf__item.page:not(.--simple){ box-shadow:inset 0 0 0 2px rgba(15,35,60,.45), inset 0 0 18px rgba(15,35,60,.25); }/* barely-there lift so dark ink reads on the darkest swirls; the painting stays as designed */
+.page::before{ content:""; position:absolute; inset:0; background:rgba(240,236,214,.10); pointer-events:none; }
+/* page curving into the binding */
+.page.left::after,.page.right::after{ content:""; position:absolute; top:0; bottom:0; width:70px; pointer-events:none; }
+.page.left::after{ right:0; background:linear-gradient(to left,rgba(0,0,0,.28),transparent); }
+.page.right::after{ left:0; background:linear-gradient(to right,rgba(0,0,0,.28),transparent); }
+
+.pg-head,.lines,.pg-num{ position:absolute; }
+.page.left .pg-head,.page.left .lines{ left:72px; right:44px; }
+.page.right .pg-head,.page.right .lines{ left:44px; right:72px; }
+
+.pg-head{ top:0; height:var(--head); display:flex; flex-direction:column;
+  justify-content:flex-end; gap:8px; padding-bottom:10px; }
+
+.lines{ top:var(--head); bottom:56px; padding-top:2px; cursor:text;
+  line-height:var(--line); font-size:20px; font-weight:500; outline:none;
+  white-space:pre-wrap; word-break:break-word; overflow-y:auto; overflow-x:hidden;
+  background-image:linear-gradient(to bottom, transparent calc(var(--line) - 1.6px),
+    var(--rule) calc(var(--line) - 1.6px), var(--rule) var(--line));
+  background-size:100% var(--line); background-attachment:local; }
+.lines::-webkit-scrollbar{ width:0; }
+/* every block stays exactly one ruled line tall so text never drifts off the lines */
+.lines h1,.lines h2{ margin:0; line-height:var(--line); text-align:center; font-family:var(--serif); font-weight:700; }
+.lines h1{ font-size:33px; }
+.lines h2{ font-size:24px; }
+.lines ul,.lines ol{ margin:0; padding-left:30px; }
+.lines li{ line-height:var(--line); }
+.lines li::marker{ color:var(--ink); }
+
+.pg-num{ bottom:18px; font-size:13px; opacity:.6; }
+.page.left .pg-num{ left:72px; }
+.page.right .pg-num{ right:72px; }
+
+/* ---------- COVERS ---------- */
+.cover{ background:url("../assets/cover.jpg") center top/cover no-repeat; cursor:pointer; }
+.cover::after{ content:""; position:absolute; top:0; bottom:0; left:0; width:40px;   /* spine crease */
+  background:linear-gradient(to right,rgba(0,0,0,.35),transparent); }
+/* sits on the torn-paper label; --lt/--lh follow the cover's aspect (set in renderer.js) */
+.cover-label{ position:absolute; left:19.7%; width:60.5%; top:var(--lt,11%); height:var(--lh,24%);
+  display:flex; align-items:center; justify-content:center; }
+.cover-label span{ font-family:var(--serif); font-style:italic; font-weight:600;
+  font-size:9vh; color:#4b3b29; letter-spacing:.02em; text-shadow:0 1px 0 rgba(255,255,255,.35); }
+.backcover{ background:#2d4a6b; }
+.back-art{ position:absolute; inset:0; background:url("../assets/cover.jpg") center bottom/cover no-repeat;
+  transform:scaleX(-1); filter:saturate(.8) brightness(.85); }
+
+/* ---------- INDEX ---------- */
+.idx-title{ font:700 30px var(--serif); letter-spacing:.04em; text-align:center;
+  border-bottom:2px solid var(--rule); padding-bottom:6px; }
+.idx-title .contd{ font-size:16px; font-weight:400; font-style:italic; opacity:.55; }
+.idx-row{ height:var(--line); display:flex; align-items:flex-end; gap:12px;
+  padding:0 6px 5px; font-size:17px; cursor:pointer; border-radius:4px; }
+.idx-row:hover{ background:rgba(44,74,99,.08); }
+.idx-row.hdr{ cursor:default; font-size:11px; letter-spacing:.14em;
+  text-transform:uppercase; opacity:.6; }
+.idx-row.hdr:hover{ background:none; }
+.idx-date{ width:64px; flex:none; font-size:14px; opacity:.75; }
+.idx-topic{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:70%; }
+.idx-dots{ flex:1; border-bottom:2px dotted var(--rule); margin-bottom:6px; }
+.idx-row.hdr .idx-dots{ border:0; }
+.idx-pg{ min-width:28px; text-align:right; }
+
+/* ---------- HUD ---------- */
+#hud{ position:fixed; top:12px; right:14px; z-index:20; display:flex; gap:6px;
+  align-items:center; padding:5px 8px; border-radius:30px; background:#1c232bcc;
+  opacity:.35; transition:opacity .2s; }
+#hud:hover{ opacity:1; }
+#hud button{ border:none; background:#2f3a46; color:#e7ecf1; cursor:pointer;
+  width:30px; height:30px; border-radius:50%; font-size:16px; display:grid; place-items:center; }
+#hud button:hover{ background:#3e4c5b; }
+#saved{ font-size:11px; color:#9fd8a8; opacity:0; transition:opacity .3s; padding:0 4px; }
+#saved.show{ opacity:1; }
+
+/* ---------- shortcuts card ---------- */
+#keys{ position:fixed; inset:0; z-index:30; background:#0b0f13aa; display:grid; place-items:center; }
+.keys-card{ width:min(620px,92vw); background:#ece6cf; color:#2c3a46; border-radius:14px;
+  padding:22px 26px; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.keys-card h3{ font:700 24px var(--serif); text-align:center; margin-bottom:12px; }
+.k{ display:flex; gap:16px; padding:6px 0; border-bottom:1px solid rgba(42,74,99,.15); font-size:14px; }
+.k b{ flex:none; width:170px; font-family:Consolas,monospace; font-size:13px; }
+.k code{ background:#0000000f; padding:0 4px; border-radius:3px; }
+
+.hidden{ display:none !important; }
