@@ -1,0 +1,52 @@
+{
+  "name": "spiral-notebook",
+  "version": "1.0.0",
+  "description": "A full-screen spiral notebook for typing notes, saved by date and heading.",
+  "main": "src/main.js",
+  "author": "Utkarsh Singh",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win --x64"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "com.utkarsh.spiralnotebook",
+    "productName": "Spiral Notebook",
+    "directories": {
+      "output": "dist"
+    },
+    "publish": null,
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Spiral Notebook",
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "deleteAppDataOnUninstall": true,
+      "artifactName": "SpiralNotebook-Setup.exe"
+    }
+  }
+}
